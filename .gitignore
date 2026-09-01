@@ -1,0 +1,15 @@
+.env
+*.env.local
+*.env.production
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+node_modules/
+.next/
+chroma_db/
+uploads/
+*.log
+*.db
+.DS_Store

@@ -1,0 +1,34 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  body {
+    @apply bg-parchment-50 text-charcoal font-sans antialiased selection:bg-turmeric-400/30 selection:text-terracotta-900;
+  }
+}
+
+/* Custom noise overlay for warm paper texture */
+.paper-texture {
+  background-image: radial-gradient(#c1a66e 0.5px, transparent 0.5px);
+  background-size: 24px 24px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F7F4EA;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D2BF91;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C1A66E;
+}

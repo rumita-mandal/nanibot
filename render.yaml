@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: nanibot-backend
+    env: docker
+    plan: free
+    region: oregon
+    branch: main
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite+aiosqlite:///./nanibot.db
+      - key: GEMINI_API_KEY
+        sync: false          # Set this secret in the Render dashboard
+      - key: GEMINI_MODEL
+        value: gemini-2.0-flash
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "10080"
+      - key: BACKEND_CORS_ORIGINS
+        value: '["https://nanibot.vercel.app","http://localhost:3000"]'
+      - key: ENVIRONMENT
+        value: production
+      - key: UPLOAD_DIR
+        value: ./uploads
+      - key: MAX_UPLOAD_SIZE_MB
+        value: "10"
+      - key: CHROMA_PERSIST_DIR
+        value: ./chroma_db
+      - key: CHROMA_COLLECTION
+        value: nanibot_wisdom
+      - key: ADMIN_EMAIL
+        value: admin@nanibot.com
+      - key: ADMIN_PASSWORD
+        sync: false          # Set this secret in the Render dashboard
