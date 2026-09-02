@@ -8,6 +8,8 @@ __pycache__/
 venv/
 node_modules/
 .next/
+out/
+.pytest_cache/
 chroma_db/
 uploads/
 *.log
