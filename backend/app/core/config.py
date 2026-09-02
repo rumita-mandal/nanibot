@@ -32,9 +32,12 @@ class Settings(BaseSettings):
     @property
     def cors_origins(self) -> List[str]:
         try:
-            return json.loads(self.BACKEND_CORS_ORIGINS)
+            origins = json.loads(self.BACKEND_CORS_ORIGINS)
+            if "https://nanibot.vercel.app" not in origins:
+                origins.append("https://nanibot.vercel.app")
+            return origins
         except Exception:
-            return ["http://localhost:3000"]
+            return ["*"]
 
     # Admin
     ADMIN_EMAIL: str = "admin@nanibot.com"

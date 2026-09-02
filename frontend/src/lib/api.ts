@@ -9,17 +9,25 @@ import {
   RegionInfo 
 } from '../types';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const getApiBaseUrl = () => {
+  if (process.env.NEXT_PUBLIC_API_URL && !process.env.NEXT_PUBLIC_API_URL.includes('localhost')) {
+    return process.env.NEXT_PUBLIC_API_URL;
+  }
+  if (typeof window !== 'undefined' && window.location.hostname.includes('vercel.app')) {
+    return 'https://nanibot-backend.onrender.com';
+  }
+  return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+};
 
 const api = axios.create({
-  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Interceptor to add auth token
+// Interceptor to set dynamic baseURL and add auth token
 api.interceptors.request.use((config) => {
+  config.baseURL = getApiBaseUrl();
   if (typeof window !== 'undefined') {
     const token = localStorage.getItem('nanibot_token');
     if (token) {
